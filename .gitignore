@@ -8,7 +8,7 @@
 *.ogg
 *.wave
 *.DS_Store
-/**/bin/
-/**/.buildozer/
+python/**/bin/
+python/**/.buildozer/
 *.apk
 *.db

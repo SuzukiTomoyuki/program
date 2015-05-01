@@ -12,3 +12,4 @@ python/**/bin/
 python/**/.buildozer/
 *.apk
 *.db
+*.spec

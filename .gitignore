@@ -13,6 +13,7 @@ python/**/.buildozer/
 *.apk
 *.db
 *.spec
+*.pyc
 
 python/**/**/bin/
 python/**/**/.buildozer

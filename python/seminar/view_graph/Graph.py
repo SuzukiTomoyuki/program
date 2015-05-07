@@ -5,6 +5,7 @@ from scipy import signal
 class Graph_type(object):
 	def __init__(self,graph_type):
 		self.graph_type=graph_type
+		set_graph()
 	def write_graph(self):
 		pass
 
@@ -16,25 +17,22 @@ class Graph(Graph_type):
 
 			X = np.linspace(-2*np.pi, 2*np.pi, 256, endpoint=True)
 			Y = signal.sawtooth(X)
-			set_graph()
 			pl.plot(X,Y)
-			pl.savefig('nokogiri.png')
+			pl.savefig(self.graph_type+'.png')
 			pl.show()
 
 		elif self.graph_type is 'cos':
 			X = np.linspace(-2*np.pi, 2*np.pi, 256, endpoint=True)
 			Y = np.cos(X)
-			set_graph()
 			pl.plot(X,Y)
-			pl.savefig('cos.png')
+			pl.savefig(self.graph_type+'.png')
 			pl.show()
 
 		elif self.graph_type is 'sin':
 			X = np.linspace(-2*np.pi, 2*np.pi, 256, endpoint=True)
 			Y = np.sin(X)
-			set_graph()
 			pl.plot(X,Y)
-			pl.savefig('sin.png')
+			pl.savefig(self.graph_type+'.png')
 			pl.show()
 
 		else: print 'faild'

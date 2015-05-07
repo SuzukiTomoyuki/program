@@ -11,19 +11,6 @@ class Graph_master(object):
 		pl.plot(self.X,self.Y)
 		pl.savefig(self.graph_type+'.png')
 		pl.show()
-
-class Graph(Graph_master):
-	def __init__(self,gr_type):
-		super(Graph,self).__init__(gr_type)
-	def graph(self):
-		if self.graph_type is 'nokogiri':
-			self.Y = signal.sawtooth(self.X)
-		elif self.graph_type is 'cos':
-			self.Y = np.cos(self.X)
-		elif self.graph_type is 'sin':
-			self.Y = np.sin(self.X)
-		else: print 'faild'
-
 	def set_graph(self):
 		pl.xticks([-np.pi, -np.pi/2, 0, np.pi/2, np.pi],[r'$-\pi$', r'$-\pi/2$', r'$0$', r'$+\pi/2$', r'$+\pi$'])
 		pl.yticks([-1, 0, +1],[r'$-1$', r'$0$', r'$+1$'])
@@ -34,3 +21,21 @@ class Graph(Graph_master):
 		ax.spines['bottom'].set_position(('data',0))
 		ax.yaxis.set_ticks_position('left')
 		ax.spines['left'].set_position(('data',0))
+
+class Nokogiri(Graph_master):
+	def __init__(self,graph_type):
+		super(Nokogiri,self).__init__(graph_type)
+	def graph(self):
+		self.Y = signal.sawtooth(self.X)
+
+class Cos(Graph_master):
+	def __init__(self,graph_type):
+		super(Cos,self).__init__(graph_type)
+	def graph(self):
+		self.Y = np.cos(self.X)
+
+class Sin(Graph_master):
+	def __init__(self,graph_type):
+		super(Sin,self).__init__(graph_type)
+	def graph(self):
+		self.Y = np.sin(self.X)

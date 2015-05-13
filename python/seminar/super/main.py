@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+import sys
+from factory import *
 
 if __name__=="__main__":
-	pass
+	factory = Factory.getFactory(sys.argv[1])

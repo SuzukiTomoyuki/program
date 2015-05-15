@@ -3,7 +3,7 @@
 class Item(object):
 	def __init__(self,caption):
 		self.caption = caption
-	def makeYakuza(self):
+	def makeList(self):
 		pass
 
 class Group(object):
@@ -15,11 +15,11 @@ class Group(object):
 	def output_file(self):
 		self.filename = self.group_name+"組.txt"
 		out = open(self.filename,"w")
-		out.write(str(self.makeYakuza()))
+		out.write(str(self.makeList()))
 		out.close()
 	def output_console(self):
-		print self.makeYakuza()
-	def makeYakuza(self):
+		print self.makeList()
+	def makeList(self):
 		pass
 
 class Name(Item):

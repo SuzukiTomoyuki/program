@@ -25,7 +25,7 @@ class Graph_master(object):
 class Nokogiri(Graph_master):
 	def __init__(self,graph_type):
 		super(Nokogiri,self).__init__(graph_type)
-	def graph(self):
+	def graph(self):pytho
 		self.Y = signal.sawtooth(self.X)
 
 class Cos(Graph_master):

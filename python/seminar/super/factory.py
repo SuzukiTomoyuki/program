@@ -1,11 +1,5 @@
 # coding:utf-8 
 
-class Item(object):
-	def __init__(self,caption):
-		self.caption = caption
-	def makeList(self):
-		pass
-
 class Group(object):
 	def __init__(self,group_name):
 		self.group_name = group_name
@@ -22,18 +16,20 @@ class Group(object):
 	def makeList(self):
 		pass
 
-class Name(Item):
+class Name(object):
 	def __init__(self,name):
-		super(Name,self).__init__(name)
 		self.name = name
+	def makeList(self):
+		pass
 
-class Position(Item):
+class Position(object):
 	def __init__(self,position):
-		super(Position,self).__init__(position)
 		self.position = position
 		self.content = []
 	def add(self,item):
 		self.content.append(item)
+	def makeList(self):
+		pass
 
 class Factory(object):
 	@classmethod

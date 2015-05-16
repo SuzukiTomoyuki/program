@@ -3,6 +3,7 @@
 import cv2
 import pylab as plt
 import copy
+from PyQt4.QtGui import *
 
 def hist_g(gray):
     hist = cv2.calcHist([im],[0],None,[256],[0,256])
@@ -46,7 +47,7 @@ def trimming(face,im):
         cv2.imwrite("trimming("+str(x)+","+str(y)+").jpg",im_trim)
 
 if __name__ == '__main__':
-    im = cv2.imread("48365273_p1_master1200.jpg",1)
+    im = cv2.imread("test.jpg",1)
     cv2.imshow("def",im)
     gray_image(im)
     gauss_f(im)

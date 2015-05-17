@@ -3,9 +3,10 @@
 import cv2
 import pylab as plt
 import copy
-from PyQt4.QtGui import *
+import Tkinter
+import tkFileDialog
 
-def hist_g(gray):
+def hist_g(im):
     hist = cv2.calcHist([im],[0],None,[256],[0,256])
     plt.plot(hist)
     plt.xlim([0,256])
@@ -21,7 +22,7 @@ def gray_image(im):
     gray = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
     cv2.imshow("gray",gray)
     cv2.imwrite("gray.jpg",gray)
-    hist_g(gray)
+    hist_g(im)
     threshold_im(gray)
 
 def gauss_f(im):
@@ -47,12 +48,19 @@ def trimming(face,im):
         cv2.imwrite("trimming("+str(x)+","+str(y)+").jpg",im_trim)
 
 if __name__ == '__main__':
-    im = cv2.imread("test.jpg",1)
+    root=Tkinter.Tk()
+    root.withdraw()
+    ftype = [('img file','*.jpg;*.png')]
+    iDir='./'
+    filename=unicode(tkFileDialog.askopenfilename(filetypes = ftype,initialdir = iDir))
+    root.mainloop(1)
+    im = cv2.imread(filename,1)
     cv2.imshow("def",im)
     gray_image(im)
     gauss_f(im)
     face = face_know(im)
     trimming(face,im)
     plt.show()
+
     cv2.waitKey(0)
     cv2.destroyAllWindows()

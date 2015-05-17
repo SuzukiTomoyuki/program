@@ -2,6 +2,7 @@
 
 import cv2
 import sys
+import os
 import pylab as plt
 import copy
 from PyQt4.QtCore import *
@@ -14,6 +15,9 @@ class Image(QDialog):
         self.img = []
         self.gray = []
         self.face = []
+
+        self.resize(200,200)
+        self.setWindowTitle(u"画像変換")
 
         button1 = QPushButton('Open Image File')
         button1.setGeometry(50, 25, 100, 50)
@@ -56,7 +60,7 @@ class Image(QDialog):
         self.setLayout(vbox)
 
     def open_img(self):
-        self.fname = unicode(QFileDialog.getOpenFileName())
+        self.fname = unicode(QFileDialog.getOpenFileName(self,'Open file','*.jpg;*.png'))
         self.img = cv2.imread(self.fname)
         cv2.imshow("%s" % self.fname, self.img)
 

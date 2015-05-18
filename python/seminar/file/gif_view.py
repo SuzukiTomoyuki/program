@@ -32,7 +32,7 @@ if __name__ == "__main__":
     ftype = [('img file','*.gif')]
     iDir='./'
     filename=tkFileDialog.askopenfilename(filetypes = ftype,initialdir = iDir)
-    app = wx.PySimpleApp()
+    app = wx.App()
     im = Image.open(filename)
     frame = wx.Frame(None, -1, "view_gif", size = im.size)
     Gif_view(frame, -1, filename)

@@ -3,6 +3,7 @@
 import cv2
 import sys
 import os
+import glob
 import pylab as plt
 import copy
 from PyQt4.QtCore import *
@@ -15,7 +16,9 @@ class Image(QDialog):
         self.img = []
         self.gray = []
         self.face = []
-        self.callable_name = []
+        self.initUI()
+
+    def initUI(self):
 
         self.resize(200,200)
         self.setWindowTitle(u"画像変換")
@@ -28,7 +31,7 @@ class Image(QDialog):
         button2.setGeometry(50, 25, 100, 50)
         self.connect(button2, SIGNAL('clicked()'), self.gray_image)
 
-        button3 = QPushButton(u'ガウシアンフィルター')
+        button3 = QPushButton(u'ガウシアンフィルタ')
         button3.setGeometry(50, 25, 100, 50)
         self.connect(button3, SIGNAL('clicked()'), self.gauss_f)
 
@@ -52,9 +55,11 @@ class Image(QDialog):
         button8.setGeometry(50, 25, 100, 50)
         self.connect(button8, SIGNAL('clicked()'), self.mozaiku)
 
-        button9 = QPushButton(u'分配器選択')
-        button9.setGeometry(50, 25, 100, 50)
-        self.connect(button9, SIGNAL('clicked()'), self.set_cascade)
+        lab1 = QLabel(u'分配器選択')
+        lab1.setGeometry(50, 25, 100, 50)
+
+        self.combo1 = QComboBox()
+        self.combo1.addItems(glob.glob("./*.xml"))
 
         vbox = QVBoxLayout()
 
@@ -66,7 +71,8 @@ class Image(QDialog):
         vbox.addWidget(button4)
         vbox.addWidget(button5)
         vbox.addWidget(button8)
-        vbox.addWidget(button9)
+        vbox.addWidget(lab1)
+        vbox.addWidget(self.combo1)
 
         self.setLayout(vbox)
 
@@ -84,7 +90,7 @@ class Image(QDialog):
         cv2.imshow("gauss",im_g)
 
     def face_know(self):
-        cascade = cv2.CascadeClassifier(self.callable_name)
+        cascade = cv2.CascadeClassifier(unicode(self.combo1.currentText()))
         f_im = copy.deepcopy(self.img)
         self.face = cascade.detectMultiScale(f_im,1.1,3)
         for (x,y,w,h) in self.face:
@@ -110,17 +116,13 @@ class Image(QDialog):
         plt.show()
 
     def mozaiku(self):
+        im_m = copy.deepcopy(self.img)
         for (x, y, w, h) in self.face:
-            im_m = copy.deepcopy(self.img)
             im_temp = im_m[y:y+h, x:x+w]
             im_temp = cv2.resize(im_temp, (w/10, h/10))
             im_temp = cv2.resize(im_temp, (w, h), interpolation=cv2.cv.CV_INTER_NN)
             im_m[y:y+h, x:x+w] = im_temp
         cv2.imshow("mozaiku",im_m)
-
-    def set_cascade(self):
-        self.callable_name = unicode(QFileDialog.getOpenFileName(self,'Open file','*.xml'))
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

@@ -15,6 +15,7 @@ class Image(QDialog):
         self.img = []
         self.gray = []
         self.face = []
+        self.callable_name = []
 
         self.resize(200,200)
         self.setWindowTitle(u"画像変換")
@@ -47,6 +48,14 @@ class Image(QDialog):
         button7.setGeometry(50, 25, 100, 50)
         self.connect(button7, SIGNAL('clicked()'), self.hist_g)
 
+        button8 = QPushButton(u'モザイク加工')
+        button8.setGeometry(50, 25, 100, 50)
+        self.connect(button8, SIGNAL('clicked()'), self.mozaiku)
+
+        button9 = QPushButton(u'分配器選択')
+        button9.setGeometry(50, 25, 100, 50)
+        self.connect(button9, SIGNAL('clicked()'), self.set_cascade)
+
         vbox = QVBoxLayout()
 
         vbox.addWidget(button1)
@@ -56,6 +65,8 @@ class Image(QDialog):
         vbox.addWidget(button3)
         vbox.addWidget(button4)
         vbox.addWidget(button5)
+        vbox.addWidget(button8)
+        vbox.addWidget(button9)
 
         self.setLayout(vbox)
 
@@ -73,7 +84,7 @@ class Image(QDialog):
         cv2.imshow("gauss",im_g)
 
     def face_know(self):
-        cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+        cascade = cv2.CascadeClassifier(self.callable_name)
         f_im = copy.deepcopy(self.img)
         self.face = cascade.detectMultiScale(f_im,1.1,3)
         for (x,y,w,h) in self.face:
@@ -97,6 +108,18 @@ class Image(QDialog):
         plt.plot(hist)
         plt.xlim([0,256])
         plt.show()
+
+    def mozaiku(self):
+        for (x, y, w, h) in self.face:
+            im_m = copy.deepcopy(self.img)
+            im_temp = im_m[y:y+h, x:x+w]
+            im_temp = cv2.resize(im_temp, (w/10, h/10))
+            im_temp = cv2.resize(im_temp, (w, h), interpolation=cv2.cv.CV_INTER_NN)
+            im_m[y:y+h, x:x+w] = im_temp
+        cv2.imshow("mozaiku",im_m)
+
+    def set_cascade(self):
+        self.callable_name = unicode(QFileDialog.getOpenFileName(self,'Open file','*.xml'))
 
 
 if __name__ == "__main__":

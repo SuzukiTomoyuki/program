@@ -98,6 +98,7 @@ class Image(QDialog):
         cv2.imshow("face_know",f_im)
 
     def trimming(self):
+        self.face_know()
         for (x,y,w,h) in self.face:
             im_trim = self.img[y:y+h,x:x+w]
             cv2.imshow("trimming("+str(x)+","+str(y)+")",im_trim)
@@ -116,6 +117,7 @@ class Image(QDialog):
         plt.show()
 
     def mozaiku(self):
+        self.face_know()
         im_m = copy.deepcopy(self.img)
         for (x, y, w, h) in self.face:
             im_temp = im_m[y:y+h, x:x+w]

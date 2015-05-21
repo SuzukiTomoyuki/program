@@ -31,7 +31,7 @@ def gauss_f(im):
     cv2.imwrite("gauss.jpg",im_g)
 
 def face_know(im):
-    cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+    cascade = cv2.CascadeClassifier("lbpcascade_animeface.xml")
     f_im = copy.deepcopy(im)
     face = cascade.detectMultiScale(f_im,1.1,3)
     for (x,y,w,h) in face:
@@ -50,7 +50,7 @@ def trimming(face,im):
 if __name__ == '__main__':
     root=Tkinter.Tk()
     root.withdraw()
-    ftype = [('img file','*.jpg;*.png')]
+    ftype = [('img file','*.jpg')]
     iDir='./'
     filename=unicode(tkFileDialog.askopenfilename(filetypes = ftype,initialdir = iDir))
     root.mainloop(1)
@@ -62,5 +62,5 @@ if __name__ == '__main__':
     trimming(face,im)
     plt.show()
 
-    cv2.waitKey(0)
+    cv2.waitKey(1)
     cv2.destroyAllWindows()

@@ -6,6 +6,8 @@ import os
 import glob
 import pylab as plt
 import copy
+import math
+from numpy.random import *
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -55,11 +57,20 @@ class Image(QDialog):
         button8.setGeometry(50, 25, 100, 50)
         self.connect(button8, SIGNAL('clicked()'), self.mozaiku)
 
+        button9 = QPushButton(u'ポアソンノイズ')
+        button9.setGeometry(50, 25, 100, 50)
+        self.connect(button9, SIGNAL('clicked()'), self.poisson_noise)
+
         lab1 = QLabel(u'分配器選択')
         lab1.setGeometry(50, 25, 100, 50)
 
         self.combo1 = QComboBox()
         self.combo1.addItems(glob.glob("./*.xml"))
+
+        lab2 = QLabel(u'ポアソンノイズの平均値')
+        lab2.setGeometry(50, 25, 100, 50)
+
+        self.spin1 = QSpinBox()
 
         vbox = QVBoxLayout()
 
@@ -71,6 +82,9 @@ class Image(QDialog):
         vbox.addWidget(button4)
         vbox.addWidget(button5)
         vbox.addWidget(button8)
+        vbox.addWidget(button9)
+        vbox.addWidget(lab2)
+        vbox.addWidget(self.spin1)
         vbox.addWidget(lab1)
         vbox.addWidget(self.combo1)
 
@@ -125,6 +139,16 @@ class Image(QDialog):
             im_temp = cv2.resize(im_temp, (w, h), interpolation=cv2.cv.CV_INTER_NN)
             im_m[y:y+h, x:x+w] = im_temp
         cv2.imshow("mozaiku",im_m)
+
+    def poisson_noise(self):
+        im_p = copy.deepcopy(self.img)
+        height, width = im_p.shape[:2]
+        for h in xrange(int(height)):
+            for w in xrange(int(width)):
+                p_data = poisson(lam=self.spin1.value())
+                if p_data > math.sqrt(self.spin1.value()):
+                    im_p[h,w] = [0,0,0]
+        cv2.imshow("poisson_noise",im_p)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

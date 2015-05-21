@@ -16,6 +16,7 @@ python/**/.buildozer/
 *.db
 *.spec
 *.pyc
+*.csv
 
 python/**/**/bin/
 python/**/**/.buildozer

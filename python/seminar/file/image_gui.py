@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import cv2
-import sys
+import sys, codecs
 import os
 import glob
 import pylab as plt
@@ -121,6 +121,7 @@ class Image(QDialog):
         self.gray_image()
         #判別分析法
         th,t_im = cv2.threshold(self.gray,0,255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+        cv2.putText(t_im, str(th), (10,15), cv2.FONT_HERSHEY_SIMPLEX, 0.5,(0,0,255),1)
         print u"閾値:"+str(th)
         cv2.imshow("threshold",t_im)
 
@@ -154,6 +155,7 @@ class Image(QDialog):
         cv2.imshow("poisson_noise",im_p)
 
 if __name__ == "__main__":
+    sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
     app = QApplication(sys.argv)
     wi = Image()
     wi.show()

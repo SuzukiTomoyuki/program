@@ -143,11 +143,14 @@ class Image(QDialog):
     def poisson_noise(self):
         im_p = copy.deepcopy(self.img)
         height, width = im_p.shape[:2]
+        w = 0
         for h in xrange(int(height)):
-            for w in xrange(int(width)):
+            while int(width) >= w | self.spin1.value() != 0:
                 p_data = poisson(lam=self.spin1.value())
-                if p_data > math.sqrt(self.spin1.value()):
-                    im_p[h,w] = [0,0,0]
+                w+=int(p_data)
+                try: im_p[h,w] = [0,0,0]
+                except: pass
+            w = 0
         cv2.imshow("poisson_noise",im_p)
 
 if __name__ == "__main__":

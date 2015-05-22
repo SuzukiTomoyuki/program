@@ -15,7 +15,7 @@ if __name__ == '__main__':
 	f = open('data.csv', 'w')
 	writer = csv.writer(f, lineterminator='\n')
 	listdata = []
-	av = 5.0
+	av = 2.0
 	for n in xrange(0,1000):
 		pois = CalPois(av, n)
 		listdata.append(pois)

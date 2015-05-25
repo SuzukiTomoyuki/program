@@ -1,5 +1,5 @@
 import networkx as nx
-from matplotlib import pyplot
+import matplotlib.pylab as plt
 
 if __name__ == '__main__':
 	g = nx.Graph()
@@ -11,5 +11,5 @@ if __name__ == '__main__':
 
 	print g.nodes(),g.edges()
 
-	nx.draw(g)
-	pyplot.show()
+	nx.draw_networkx(g)
+	plt.savefig("sample.png")

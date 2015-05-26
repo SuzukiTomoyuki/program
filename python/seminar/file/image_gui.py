@@ -15,6 +15,7 @@ class Image(QDialog):
 
     def __init__(self, parent=None):
         super(Image, self).__init__(parent)
+        self.fname = []
         self.img = []
         self.gray = []
         self.face = []
@@ -61,6 +62,10 @@ class Image(QDialog):
         button9.setGeometry(50, 25, 100, 50)
         self.connect(button9, SIGNAL('clicked()'), self.poisson_noise)
 
+        button10 = QPushButton(u'鼻眼鏡')
+        button10.setGeometry(50, 25, 100, 50)
+        self.connect(button10, SIGNAL('clicked()'), self.hanamegane)
+
         lab1 = QLabel(u'分配器選択')
         lab1.setGeometry(50, 25, 100, 50)
 
@@ -82,6 +87,7 @@ class Image(QDialog):
         vbox.addWidget(button4)
         vbox.addWidget(button5)
         vbox.addWidget(button8)
+        vbox.addWidget(button10)
         vbox.addWidget(button9)
         vbox.addWidget(lab2)
         vbox.addWidget(self.spin1)
@@ -153,6 +159,19 @@ class Image(QDialog):
                 except: pass
             w = 0
         cv2.imshow("poisson_noise",im_p)
+
+    def hanamegane(self):
+        self.face_know()
+        from PIL import Image
+        layer1 = Image.open(self.fname)
+        layer2 = Image.open('megane.png')
+        layer1 = layer1.convert('RGBA')
+        temp_c = Image.new('RGBA',layer1.size,(255,255,255,0))
+        for (x, y, w, h) in self.face:
+            resize_megane = layer2.resize((w,h))
+            temp_c.paste(resize_megane,(x,y),resize_megane)
+        result = Image.alpha_composite(layer1,temp_c)
+        result.show()
 
 if __name__ == "__main__":
     sys.stdout = codecs.getwriter("utf-8")(sys.stdout)

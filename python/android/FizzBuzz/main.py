@@ -57,6 +57,7 @@ Builder.load_string('''
             Button:
             	text: 'reset'
             	font_size: 25
+            	background_color:0,0,0,1
             	center_x: (root.width/3)
             	on_press: root.on_reset()
 ''')

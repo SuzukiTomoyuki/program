@@ -1,0 +1,19 @@
+ScreenManagement:
+	transition: FadeTransition
+	SimpleApp:
+	SimpleApp2:
+
+<SimpleApp>:
+	name: "sim1"
+	Button:
+		text: "Fuck"
+		color: 0,1,0,1
+		pos: 100,1
+		font_size: 40
+		on_release: app.root.current = "sim2"
+
+<SimpleApp2>:
+	name: "sim2"
+	Button:
+		text: "you"
+		on_release: app.root.current = "sim1"

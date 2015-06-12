@@ -19,6 +19,6 @@ if __name__ == '__main__':
     #graph layput
     #circular, random, shell, spring, spectral
     #ncolors = [colorsys.hsv_to_rgb(h / num_nodes, 1.0, 1.0)for h in range(num_nodes)]
-	nx.draw(sample, pos=nx.random_layout(sample), node_color='white',edge_color="g")
+	nx.draw(sample, pos=nx.spring_layout(sample), node_color='white',edge_color="g")
 
 	plt.savefig("sample.png")

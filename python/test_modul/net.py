@@ -18,7 +18,7 @@ if __name__ == '__main__':
 		sample.add_node(i)
 
 	for i in xrange(0,60):
-		sample.add_edge(i,poisson(lam=30))
+		sample.add_edge(i,poisson(lam=30),weight=5)
 	#print sample.edges()
 	try: print nx.shortest_path(sample, 30, 0)
 	except: print u"ぼっち"

@@ -60,7 +60,10 @@ def main():
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == QUIT: sys.exit()
-            if event.key == K_ESCAPE: sys.exit()
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE: sys.exit()
+                if event.key == K_DOWN:
+                    player.move_ip(0, 10)
  
 if __name__ == "__main__":
     main()

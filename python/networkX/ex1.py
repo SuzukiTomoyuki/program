@@ -22,4 +22,4 @@ if __name__ == '__main__':
 	nx.draw(sample, pos=nx.spring_layout(sample), node_color='white',edge_color="g")
 
 	plt.savefig("sample.png")
-	nx.write_gexf(sample,"sample.gexf")
+	nx.write_gexf(sample, "sample.gexf")

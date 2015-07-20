@@ -42,31 +42,33 @@ class CustomFormat(csv.excel):
     quoting = csv.QUOTE_ALL
 
 if __name__ == '__main__':
-	# file_path = '/Users/suzukitoshiyuki/program/complexnetwork/data/tcserv.nii.ac.jp/access/dxfsrs1004@gmail.com/2790ed0df755cd51/nicocomm/data/video/0000.dat'
 	csvFile = codecs.open("./niconico.csv","w","utf-8")
 	tags_append = []
 	tags_append2 = []
 	count = 0
-	path = "C:\cygwin/files/tcserv.nii.ac.jp/access/dxfsrs1004@gmail.com/2790ed0df755cd51/nicocomm/data/video/0000.dat/"
+	count2 = 0
+	path = "/Users/suzukitoshiyuki/program/complexnetwork/data/tcserv.nii.ac.jp/access/dxfsrs1004@gmail.com/2790ed0df755cd51/nicocomm/data/video/"
+	# path = "C:\cygwin/files/tcserv.nii.ac.jp/access/dxfsrs1004@gmail.com/2790ed0df755cd51/nicocomm/data/video/0000.dat/"
 	for file in glob.glob(path + "*.dat"):
 		# print file
-		# file_path = "C:\cygwin/files/tcserv.nii.ac.jp/access/dxfsrs1004@gmail.com/2790ed0df755cd51/nicocomm/data/video/0000.dat/0000.dat"
-	
+		
 		f = open(file)
 		nico = WordHistgram(f)
 		while nico.line:
 		    nico.__init__(f)
 		    # nico.print_tags()
-		    if count < 500:
-		    	nico.get_tags(tags_append)
+		    if count < 2000:
+	    		nico.get_tags(tags_append)
 		    else:
 		    	break
+		    count2+=1
 		count+=1
 
+	print count2
 	counter = Counter(tags_append)
 	for word, cnt in counter.most_common():
 	    # print "%s %s" % (word.decode("unicode-escape"), cnt)
-	    if cnt > 9:
+	    if cnt > 99:
 	    	# print "%s,%s" % (word.decode("unicode-escape"), cnt)
 	    	# writer.writerow((word.decode("unicode-escape"), cnt))
 	    	print >> csvFile, json.loads(json.dumps(word)).decode("unicode-escape"),u" "+str(cnt)

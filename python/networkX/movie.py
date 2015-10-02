@@ -6,15 +6,17 @@ import treetaggerwrapper
 
 def main():
 	# init
-	tagger = treetaggerwrapper.TreeTagger(TAGLANG='en',TAGDIR='/Users/suzukitoshiyuki/Applications/tree_tagger')
-	file_path = '/Users/suzukitoshiyuki/program/complexnetwork/movies.txt'
+	# tagger = treetaggerwrapper.TreeTagger(TAGLANG='en',TAGDIR='/Users/suzukitoshiyuki/Applications/tree_tagger')
+	tagger = treetaggerwrapper.TreeTagger(TAGLANG='en',TAGDIR='C:\TreeTagger')
+	# file_path = '/Users/suzukitoshiyuki/program/complexnetwork/movies.txt'
+	file_path = 'F:\data\movies.txt'
 	count = 0
 	G = nx.Graph()
 
 	f = open(file_path)
 	line = f.readline()
 
-	while count < 1000:
+	while count < 10:
 		if line.find('product/productId:') != -1:
 			product_name = line.split(':')[1]
 

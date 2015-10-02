@@ -14,7 +14,7 @@ def main():
 	f = open(file_path)
 	line = f.readline()
 
-	while count < 1000:
+	while count < 50000:
 		if line.find('product/productId:') != -1:
 			product_name = line.split(':')[1]
 

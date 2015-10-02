@@ -3,20 +3,28 @@
 import networkx as nx
 import matplotlib.pylab as plt
 import treetaggerwrapper
+from pandas import Series, DataFrame
+import pandas as pd
+
+movie_data = {}
 
 def main():
 	# init
 	tagger = treetaggerwrapper.TreeTagger(TAGLANG='en',TAGDIR='/Users/suzukitoshiyuki/Applications/tree_tagger')
+	# tagger = treetaggerwrapper.TreeTagger(TAGLANG='en',TAGDIR='C:\TreeTagger')
+
 	file_path = '/Users/suzukitoshiyuki/program/complexnetwork/movies.txt'
+	# file_path = 'F:\data\movies.txt'
 	count = 0
 	G = nx.Graph()
 
 	f = open(file_path)
 	line = f.readline()
 
-	while count < 50000:
+	while count < 1000:
 		if line.find('product/productId:') != -1:
 			product_name = line.split(':')[1]
+			movie_data[product_name] = []
 
 		if line.find('review/text:') != -1:
 			count = 1 + count
@@ -27,12 +35,15 @@ def main():
 					mm = tag.split('\t')
 					if mm[1] == 'NN':
 						if mm[2] != '<unknown>':
-							G.add_edge(product_name, mm[2])
+							# G.add_edge(product_name, mm[2])
+							movie_data[unicode(product_name)].append(unicode(mm[2]))
 				except:
 					pass
 		else:
 			pass
 		line = f.readline()
+
+	print movie_data
 
 	d=nx.degree(G)
 	pos = nx.spring_layout(G)
